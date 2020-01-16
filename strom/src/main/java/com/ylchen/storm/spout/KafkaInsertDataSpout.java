@@ -60,7 +60,7 @@ public class KafkaInsertDataSpout extends BaseRichSpout{
                 msgList = consumer.poll(100);
                 if (null != msgList && !msgList.isEmpty()) {
                     String msg = "";
-                    List<User> list=new ArrayList<User>();
+                    //List<User> list=new ArrayList<User>();
                     for (ConsumerRecord<String, String> record : msgList) {
                         // 原始数据
                         msg = record.value();
@@ -68,15 +68,15 @@ public class KafkaInsertDataSpout extends BaseRichSpout{
                             continue;
                         }
                         try{
-                            list.add(JSON.parseObject(msg, User.class));
+                            //list.add(JSON.parseObject(msg, User.class));
                         }catch(Exception e){
                             logger.error("数据格式不符!数据:{}",msg);
                             continue;
                         }
                     }
-                    logger.info("Spout发射的数据:"+list);
+                    //logger.info("Spout发射的数据:"+list);
                     //发送到bolt中
-                    this.collector.emit(new Values(JSON.toJSONString(list)));
+                    this.collector.emit(new Values(JSON.toJSONString(msg)));
                     consumer.commitAsync();
                 }else{
                     TimeUnit.SECONDS.sleep(3);

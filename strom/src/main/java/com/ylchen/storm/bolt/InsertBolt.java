@@ -19,12 +19,7 @@ import org.slf4j.LoggerFactory;
 import com.alibaba.fastjson.JSON;
 
 /**
- * @Title: InsertBolt
- * @Description:
- * 写入数据的bolt
- * @Version:1.0.0
- * @author pancm
- * @date 2018年4月19日
+ * @time
  */
 public class InsertBolt extends BaseRichBolt{
 
@@ -49,9 +44,9 @@ public class InsertBolt extends BaseRichBolt{
 
     @Override
     public void execute(Tuple tuple) {
-        String msg=tuple.getStringByField(Constants.FIELD);
+        String msg = tuple.getStringByField(Constants.COUNT);
         try{
-            List<User> listUser =JSON.parseArray(msg,User.class);
+            /*List<User> listUser =JSON.parseArray(msg,User.class);
             //移除age小于10的数据
             if(listUser!=null&&listUser.size()>0){
                 Iterator<User> iterator = listUser.iterator();
@@ -64,8 +59,10 @@ public class InsertBolt extends BaseRichBolt{
                 }
                 if(listUser!=null&&listUser.size()>0){
                     userService.insertBatch(listUser);
-                }
-            }
+
+                }*/
+            System.out.println(msg);
+
         }catch(Exception e){
             logger.error("Bolt的数据处理失败!数据:{}",msg,e);
         }
